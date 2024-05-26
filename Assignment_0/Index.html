@@ -6,6 +6,51 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="quiz" id="quiz-container">
+    </div>
 </body>
+<script>
+    const questionData = [
+        {
+            questionName: "Do you like to go out",
+            options: ["Yes", "No"]
+        },
+        {
+            questionName: "Do you like to go out",
+            options: ["Yes", "No"]
+        },
+        {
+            questionName: "Do you like to go out",
+            options: ["Yes", "No"]
+        }
+    ];
+    
+    const quizUI = document.getElementById("quiz-container");
+
+    function loadQuestion() {
+        questionData.forEach((question, index) => {
+            const questionUI = document.createElement("div"); // Corrected element creation
+            questionUI.textContent = questionName.question; // Accessing question property
+            quizUI.appendChild(questionUI);
+
+            question.options.forEach((option, optionIndex) => {
+                const optionUI = document.createElement("input");
+                optionUI.type = "radio";
+                optionUI.name = "options";
+                optionUI.value = option;
+                optionUI.id = optionIndex;
+
+                const label = document.createElement("label");
+                label.textContent = option;
+                label.htmlFor = optionUI.id;
+
+                quizUI.appendChild(optionUI)
+                quizUI.appendChild(label);
+            })
+            
+        });
+    }
+
+    loadQuestion();
+</script>
 </html>
