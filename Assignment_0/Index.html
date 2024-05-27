@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="flex flex-col items-center">
+        <h1 class=" text-3xl my-8 leading-normal font-bold">Introvert or Extrovert Personality Test</h1>
         <div class="quiz_container " id="quizContainer">
             <div class="question_container w-96 bg-gray-100 p-4 rounded-lg mb-4" id="questionContainer"></div>
         </div>
@@ -17,18 +18,66 @@
 
     //Question Datas
     const questionData = [
-        {
-            questionName: "Do you like to go out",
-            options: ["Yes", "No"]
-        },
-        {
-            questionName: "Do you like to go out",
-            options: ["Yes", "No"]
-        },
-        {
-            questionName: "Do you like to go out",
-            options: ["Yes", "No"]
-        },
+    {
+        questionName: "Do you enjoy attending parties?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "Do you prefer spending time alone?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "How do you feel about small talk?",
+        options: [ "I enjoy it", "I dislike it"],
+    },
+    {
+        questionName: "Would you rather work in a team or independently?",
+        options: ["Independently", "Team"],
+    },
+    {
+        questionName: "Do you recharge by being around people?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "Do you find social situations draining?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "Are you comfortable speaking in public?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "I’m more reserved and keep my feelings to myself?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "Do you enjoy deep conversations?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "How do you feel about crowded places?",
+        options: ["I avoid them", "I like them"],
+    },
+    {
+        questionName: "Do you prefer online communication over face-to-face?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "Solo activities or ones that involve close friends or family",
+        options: ["Solo activites", "Group activities"],
+    },
+    {
+        questionName: "Do you feel energized after socializing?",
+        options: ["Yes", "No"],
+    },
+    {
+        questionName: "Would you rather stay home or go out with friends?",
+        options: ["Stay home", "Go out"],
+    },
+    {
+        questionName: "Do you enjoy meeting new people?",
+        options: ["Yes", "No"],
+    },
     ];
 
     //Created Array to store user answers
@@ -87,6 +136,8 @@
 
     function showResult() {
         let score = 0;
+        
+        
         console.log(score)
     }
 
