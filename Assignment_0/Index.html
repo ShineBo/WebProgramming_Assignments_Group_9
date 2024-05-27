@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="quiz" id="quiz-container">
+    <div class="flex flex-col items-center">
+        <div class="quiz_container " id="quizContainer">
+            <div class="question_container w-96 bg-gray-100 p-4 rounded-lg mb-4" id="questionContainer"></div>
+        </div>
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" onclick="showResult()">Submit</button>
     </div>
-</body>
 <script>
+
+    //Question Datas
     const questionData = [
         {
             questionName: "Do you like to go out",
@@ -22,35 +28,69 @@
         {
             questionName: "Do you like to go out",
             options: ["Yes", "No"]
-        }
+        },
     ];
-    
-    const quizUI = document.getElementById("quiz-container");
 
-    function loadQuestion() {
-        questionData.forEach((question, index) => {
-            const questionUI = document.createElement("div"); // Corrected element creation
-            questionUI.textContent = questionName.question; // Accessing question property
-            quizUI.appendChild(questionUI);
+    //Created Array to store user answers
+    let userAnswers = new Array(questionData.length).fill(null);
 
+    function loadQuestions() {
+        
+        const questionUI = document.getElementById("questionContainer");
+        //Loop Through each questions in questionData
+        questionData.forEach((question, questionIndex) => {
+
+            //Create Question Element
+            const questionElement = document.createElement("div");
+            questionElement.classList.add("question");
+            questionElement.setAttribute("id", "question_" + (questionIndex + 1) )
+            questionElement.textContent = question.questionName;
+
+            //Create Option Element
+            const optionElement = document.createElement("div");
+            optionElement.classList.add("options", "flex", "flex-row", "justify-items-center","gap-3", "items-center");
+            optionElement.setAttribute("id", "option_" + (questionIndex + 1) )
+
+            //Loop Through each questions' options in questionData and create radio button and label
             question.options.forEach((option, optionIndex) => {
-                const optionUI = document.createElement("input");
-                optionUI.type = "radio";
-                optionUI.name = "options";
-                optionUI.value = option;
-                optionUI.id = optionIndex;
+                const radioButton = document.createElement("input");
+                radioButton.type = "radio";
+                radioButton.id = "options" + (questionIndex + 1);
+                radioButton.name = "options" + (questionIndex + 1);
+                radioButton.value = optionIndex;
+                radioButton.onclick = () => {
+                    console.log(questionIndex + "-" + optionIndex);
+                    selectAnswer(questionIndex, optionIndex);
+                };
+
 
                 const label = document.createElement("label");
                 label.textContent = option;
-                label.htmlFor = optionUI.id;
+                label.htmlFor = radioButton.id;
 
-                quizUI.appendChild(optionUI)
-                quizUI.appendChild(label);
-            })
-            
+                //added label and button into Option Element
+                optionElement.appendChild(label);
+                optionElement.appendChild(radioButton);
+            });
+
+            //added Question and Option Element into Question UI
+            questionUI.appendChild(questionElement);
+            questionUI.appendChild(optionElement);
         });
     }
 
-    loadQuestion();
+    //function to add user's picks into userAnswers Array
+    function selectAnswer(questionIndex, optionIndex) {
+        userAnswers[questionIndex] = optionIndex;
+        console.log(userAnswers)
+    }
+
+    function showResult() {
+        let score = 0;
+        console.log(score)
+    }
+
+    loadQuestions();
 </script>
+</body>
 </html>
