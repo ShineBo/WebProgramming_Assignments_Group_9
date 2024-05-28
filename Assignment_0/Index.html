@@ -3,80 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Personality Test</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="flex flex-col items-center">
-        <h1 class=" text-3xl my-8 leading-normal font-bold">Introvert or Extrovert Personality Test</h1>
+    <div class="flex flex-col items-center bg-gradient-to-r from-sky-300 to-sky-800">
         <div class="quiz_container " id="quizContainer">
-            <div class="question_container w-96 bg-gray-100 p-4 rounded-lg mb-4" id="questionContainer"></div>
+            <div class="question_container bg-gray-100 bg-opacity-20 px-16 py-4 max-md:px-6 max-md:py-2 rounded-lg mt-8 mb-4" id="questionContainer">
+                <h1 class=" text-3xl mt-2 mb-2 leading-normal font-bold">Introvert or Extrovert Personality Test</h1>
+            </div>
         </div>
-        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4" onclick="showResult()">Submit</button>
+        <button class="bg-blue-200 hover:bg-blue-300 text-white font-bold py-2 px-6 rounded-lg mt-2 mb-12" onclick="showResult()">
+            <span class=" text-gray-800">Submit</span>
+        </button>
     </div>
 <script>
 
     //Question Datas
     const questionData = [
     {
-        questionName: "Do you enjoy attending parties?",
-        options: ["Yes", "No"],
+        questionName: "1. Do you enjoy being at the center of attention?",
+        options: ["Yes", "No"], //Extrovert
     },
     {
-        questionName: "Do you prefer spending time alone?",
-        options: ["Yes", "No"],
+        questionName: "2. Do you find yourself more inspired and creative when alone or in the presence of others?",
+        options: ["Alone", "Presence of others"],
     },
     {
-        questionName: "How do you feel about small talk?",
-        options: [ "I enjoy it", "I dislike it"],
+        questionName: "3. How do you feel about small talk?",
+        options: [ "I enjoy it", "I dislike it"], //Extrovert
     },
     {
-        questionName: "Would you rather work in a team or independently?",
+        questionName: "4. Would you rather work in a team or independently?",
         options: ["Independently", "Team"],
     },
     {
-        questionName: "Do you recharge by being around people?",
+        questionName: "5. Do you recharge by being around people?",
+        options: ["Yes", "No"], //Extrovert //
+    },
+    {
+        questionName: "6. What’s your preferred way to spend a quiet evening?",
+        options: ["Solo Walks", "Hangout with others"],
+    },
+    {
+        questionName: "7. Are you comfortable speaking in public?",
+        options: ["Yes", "No"], //Extrovert //
+    },
+    {
+        questionName: "8. I’m more reserved and keep my feelings to myself?",
         options: ["Yes", "No"],
     },
     {
-        questionName: "Do you find social situations draining?",
-        options: ["Yes", "No"],
+        questionName: "9. Would you prefer to live in a bustling city with constant activity or a peaceful countryside with serene surroundings?",
+        options: ["Bustling city", "Peaceful countryside"], //Extrovert
     },
     {
-        questionName: "Are you comfortable speaking in public?",
-        options: ["Yes", "No"],
-    },
-    {
-        questionName: "I’m more reserved and keep my feelings to myself?",
-        options: ["Yes", "No"],
-    },
-    {
-        questionName: "Do you enjoy deep conversations?",
-        options: ["Yes", "No"],
-    },
-    {
-        questionName: "How do you feel about crowded places?",
+        questionName: "10. How do you feel about crowded places?",
         options: ["I avoid them", "I like them"],
     },
     {
-        questionName: "Do you prefer online communication over face-to-face?",
-        options: ["Yes", "No"],
+        questionName: "11. Do you prefer online communication over face-to-face?",
+        options: ["Face-to-Face", "Online"], //Extrovert
     },
     {
-        questionName: "Solo activities or ones that involve close friends or family",
+        questionName: "12. Solo activities or ones that involve close friends or family",
         options: ["Solo activites", "Group activities"],
     },
     {
-        questionName: "Do you feel energized after socializing?",
+        questionName: "13. Would you rather spend a weekend exploring a new city or relaxing at home?",
+        options: ["Explore the city", "Relax at home"], //Extrovert
+    },
+    {
+        questionName: "14. Do you enjoy deep, one-on-one conversations?",
         options: ["Yes", "No"],
     },
     {
-        questionName: "Would you rather stay home or go out with friends?",
-        options: ["Stay home", "Go out"],
-    },
-    {
-        questionName: "Do you enjoy meeting new people?",
-        options: ["Yes", "No"],
+        questionName: "15. Are you the first to initiate conversations with strangers?",
+        options: ["Yes", "No"], //Extrovert
     },
     ];
 
@@ -91,7 +94,7 @@
 
             //Create Question Element
             const questionElement = document.createElement("div");
-            questionElement.classList.add("question", "py-2");
+            questionElement.classList.add("question", "py-2", "font-semibold", "text-lg");
             questionElement.setAttribute("id", "question_" + (questionIndex + 1) )
             questionElement.textContent = question.questionName;
 
@@ -107,8 +110,9 @@
                 radioButton.id = "options" + (questionIndex + 1);
                 radioButton.name = "options" + (questionIndex + 1);
                 radioButton.value = optionIndex;
+                radioButton.classList.add("w-5", "h-5", "bg-gray-100", "border-gray-300")
                 radioButton.onclick = () => {
-                    console.log(questionIndex + "-" + optionIndex);
+                    // console.log(questionIndex + "-" + optionIndex);
                     selectAnswer(questionIndex, optionIndex);
                 };
 
@@ -136,15 +140,19 @@
 
     function showResult() {
 
+        //Checking whether user selected all options
         const isAllOptionsChecked = userAnswers.every(answer => answer !== null);
-
         if(!isAllOptionsChecked) {
             alert("Please answer all the questions before submitting")
             return
-        }   
+        }
+
+        //reset Radio Buttons to unchecked
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radioButton => (radioButton.checked = false));
 
         let score = 0;
-
+        //loop through user answers to calculate score
         userAnswers.forEach((answerIndex, questionIndex) => {
             if(questionIndex % 2 == 0) {
                 score += answerIndex === 0 ? 1 : -1;
@@ -153,7 +161,25 @@
             }
         })
 
-        const result = score > 0 ? alert("You are Extrovert") : alert("You are Introvert")
+        // Determine the degree of introversion or extroversion
+        const maxScore = questionData.length;
+        const degree = Math.abs(score) / maxScore;
+        let degreeAdjective;
+
+        if (degree >= 0.8) {
+            degreeAdjective = "extremely";
+        } else if (degree >= 0.6) {
+            degreeAdjective = "very";
+        } else if (degree >= 0.4) {
+            degreeAdjective = "moderately";
+        } else if (degree >= 0.2) {
+            degreeAdjective = "slightly";
+        } else {
+            degreeAdjective = "barely";
+        }
+
+        const result = score > 0 ? `You are ${degreeAdjective} extroverted` : `You are ${degreeAdjective} introverted`;
+        alert(result);
     }
     
     loadQuestions()
